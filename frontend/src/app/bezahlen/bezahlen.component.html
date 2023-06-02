@@ -1,0 +1,73 @@
+<a class="btn btn-secondary" routerLink="/warenkorb"><span class="fa fa-arrow-left"></span> zurück</a>
+<div *ngIf="this.zahlungsart == 'bar'">
+  <h3>Barzahlung</h3>
+  Bitte lege den zu zahlenden Betrag in Höhe von <b>{{inventarService.bezieheGesamtpreis()}}{{globals.waehrung}}</b> in die Kasse. <br/><br/>
+  Gib den Betrag unten ein, den Du in die Kasse gelegt hast (ggf. Trinkgeld/Spende). Das ist für die Verwaltung der Kasse notwendig.<br/><br/>
+  <label>Tatsächlicher Betrag: <input [(ngModel)] = "tatsaechlicherBetrag" type="number"></label> <button class="btn btn-secondary" (click)="tatsaechlicherBetrag = inventarService.bezieheGesamtpreis()">Passgenau</button><br/><br/>
+  <button class="btn btn-primary" (click)="jetztBezahlen()">Jetzt bezahlen!</button>
+</div>
+
+<div *ngIf="this.zahlungsart == 'konto'">
+  <h3>Zahlung mit Guthaben (Benutzerkonto)</h3>
+  <div *ngIf="this.gewaehlterBenutzer == null">
+    <input [(ngModel)]="this.nameSuche" placeholder="Nach Vornamen suchen" />
+    <div style="width: 100%; text-align: center;"><b><i>Name auswählen:</i></b></div><br/>
+    <li *ngFor="let benutzer of benutzerListe | searchfilter: 'firstname' : this.nameSuche">
+      <button class="btn btn-info" (click)="benutzerZahlungInitiieren(benutzer)">{{benutzer.firstname}} {{benutzer.lastname}}</button>
+    </li>
+  </div>
+  <div *ngIf="this.gewaehlterBenutzer != null">
+		Gesamtbetrag: <b>{{inventarService.bezieheGesamtpreis()}}{{globals.waehrung}}</b><br/>
+		Gewählter Benutzer (ausgewähltes Konto): <b>{{this.gewaehlterBenutzer.firstname}} {{this.gewaehlterBenutzer.lastname}}</b>
+    <div *ngIf="this.gewaehlterBenutzer.password_required">
+      <label>PIN: <input [(ngModel)] = "pin" type="password"></label>
+    </div>
+    <div>
+      <button class="btn btn-primary" (click)="jetztBezahlen()">Jetzt bezahlen!</button>
+    </div>
+  </div>
+</div>
+
+<!--
+<h4>Barzahlung</h4>
+
+<button class="btn" (click)="barZahlungInitiieren()">Jetzt Bar bezahlen</button>
+
+<h4>Auf Benutzerkonto anschreiben</h4>
+
+Benutzer auswählen, um Bezahlvorgang abzuschließen<br/><br/>
+
+<ul>
+	<li *ngFor="let benutzer of benutzerListe">
+		<button class="btn btn-info" (click)="benutzerZahlungInitiieren(benutzer)">{{benutzer.firstname}} {{benutzer.lastname}}</button>
+	</li>
+</ul>
+
+<div class="zahlungs-wizard" [hidden]="zahlungsmaskeVerstecken">
+	<div class="zahlungs-wizard-inhalt">
+		<h3>Bezahlung</h3>
+		<p (click) = "zahlungsmaskeVerstecken = true">zurück</p>
+		Gesamtpreis: {{inventarService.bezieheGesamtpreis()}}
+		<p *ngIf="gewaehlteZahlungsart == 'bar'">
+			Zahlungsart: Barzahlung<br/><br/>
+			<b>Bitte Betrag in die Kasse legen. Falls der Betrag nicht passgenau (sprich: Spende) ist, bitte Betrag unten eingeben.</b><br/>
+			<label>Tatsächlicher Betrag: <input [(ngModel)] = "tatsaechlicherBetrag"></label> <button class="btn btn-primary">Passgenau</button>
+		</p>
+		<p *ngIf="gewaehlteZahlungsart == 'konto'">
+			Zahlungsart: Guthaben auf Benutzerkonto<br/>
+			Benutzerkonto: {{gewaehlterBenutzer.name}}<br/><br/>
+			<span *ngIf="gewaehlterBenutzer.nutztPin == true">
+				<label>PIN: <input [(ngModel)] = "pinNummer"></label>
+				{{pinNummer}}
+			</span>
+			<span *ngIf="gewaehlterBenutzer.nutztPin == false">
+				Keine PIN erforderlich.
+			</span>
+		</p>
+
+		<p class="lead" *ngIf="loadingIndicator">Loading...</p>
+
+		<button class="btn btn-primary" (click)="jetztBezahlen()">Jetzt bezahlen!</button> <b><span *ngIf="fehlerNachricht.length != 0" style="color: red;"><span class="fa fa-exclamation-triangle"></span> {{fehlerNachricht}}</span></b>
+	</div>
+</div>
+-->

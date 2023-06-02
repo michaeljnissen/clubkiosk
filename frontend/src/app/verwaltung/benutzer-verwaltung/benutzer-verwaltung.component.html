@@ -1,0 +1,33 @@
+<div class="benutzer-bearbeiten" [hidden]="aktuellerBenutzer == null">
+  <b>Benutzer bearbeiten</b><br/>
+  <input type="text" *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.firstname" placeholder="Vorname"><br/>
+  <input type="text" *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.lastname" placeholder="Nachname"><br/>
+  <input type="text" *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.email" placeholder="E-Mail"><br/>
+  <input type="number" *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.balance" placeholder="Guthaben"><br/>
+  <input type="password" *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.password" placeholder="Neue PIN setzen"/><br/>
+  <select *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.password_required">
+    <option value="1">Bestellungen auf mein Konto nur mit PIN-Eingabe erlauben</option>
+    <option value="0">Bestellungen auf mein Konto ohne PIN-Eingabe erlauben</option>
+  </select><br/>
+  <select *ngIf="aktuellerBenutzer" [(ngModel)]="aktuellerBenutzer.active">
+    <option value="1">Aktiv (wird angezeigt)</option>
+    <option value="0">Inaktiv (wird nicht angezeigt)</option>
+  </select>        
+
+  <button class="btn btn-primary" (click)="speichereBenutzer(aktuellerBenutzer)">Speichern</button>
+</div>
+
+<!--<div class="benutzer-vf-synchro">
+  <b>Vereinsflieger-Benutzer-Synchronisation:</b> Fügt alle Benutzer hinzu, die noch nicht in der Getränkekasse vorhanden sind
+  <input type="text" [(ngModel)]="vfAdminEmail" placeholder="VF-Admin-E-Mail">
+  <input type="password" [(ngModel)]="vfAdminPw" placeholder="VF-Admin-Passwort">
+  <button class="btn btn-primary" (click)="synchronisiereBenutzer(vfAdminEmail, vfAdminPw)">Synchronisieren</button>
+</div>-->
+
+<div *ngFor="let benutzer of benutzerListe" class="row verwaltung-eintrag">
+  <div class="col-sm-1"><b>{{benutzer.id}}</b></div>
+  <div class="col-sm-2">{{benutzer.firstname}}</div>
+  <div class="col-sm-2">{{benutzer.lastname}}</div>
+  <div class="col-sm-2">{{benutzer.email}}</div>
+  <div class="col-sm-2"><button class="btn btn-primary" (click)="waehleBenutzer(benutzer)"><span class="fa fa-eye"></span> Ansehen</button></div>
+</div>

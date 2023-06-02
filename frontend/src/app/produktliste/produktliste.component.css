@@ -1,0 +1,28 @@
+.produkt-name, .produkt-kurzdaten {
+    display: inline-block;
+}
+
+.produkt-name {
+    font-size: 26px;
+}
+
+.produkt-kurzdaten {
+    float: right;
+}
+
+.produkt {
+  background: #f3f3f3;
+  padding: 5px;
+  margin: 5px 0;
+  border-left-width: 10px;
+  border-left-style: solid;
+}
+
+.produkt-details
+{
+  float: left;
+}
+
+.produkt-buy{
+  float: right;
+}

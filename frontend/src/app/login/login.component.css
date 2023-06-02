@@ -1,0 +1,19 @@
+input:required:invalid, input:focus:invalid {
+    /* insert your own styles for invalid form input */
+    -moz-box-shadow: none;
+    border: 1px solid red;
+}
+
+input:required:invalid:afer, input:focus:invalid:after {
+    content: "Dieses Feld muss ausgefüllt sein.";
+}
+
+.fehler-nachricht
+{
+    padding: 10px;
+    border: 1px solid red;
+    background: #f0f0f0;
+    display: inline-block;
+}
+
+  

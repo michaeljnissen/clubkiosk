@@ -1,0 +1,10 @@
+.bestellung-anzeigen {
+  padding: 10px;
+  background: #f3f3f3;
+  border: 1px solid #c0c0c0;
+}
+
+.bestellung-anzeigen ul li {
+  margin: 0;
+  padding: 0;
+}

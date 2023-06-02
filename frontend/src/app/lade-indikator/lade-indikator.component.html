@@ -1,0 +1,17 @@
+<div class="fehler-nachrichten" [hidden]="!(fehlermeldungen.length > 0)">
+  {{fehlermeldungen.length}} Fehler bei Kommunikation mit Server. <button class="btn" (click)="this.fehlerNachrichtenLeeren()">Hinweis schließen</button>
+  <div class="fehler-details">
+    <span *ngFor="let fehlermeldung of fehlermeldungen">
+      {{fehlermeldung.message}}<br/>
+    </span>
+  </div>
+</div>
+<div class="spinner-hintergrund" [hidden]="!(ladestatus > 0)">
+  <div class="lade-text">Lade Daten vom Server... ({{ladestatus}} ausstehend)</div>
+  <div class="spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

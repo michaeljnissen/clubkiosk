@@ -1,0 +1,33 @@
+<p>
+  <b>Hallo, {{this.benutzer?.firstname}}!</b><br/>
+  Dein aktuelles Guthaben beträgt {{this.benutzer?.balance}}{{globals.waehrung}}.
+</p>
+
+<p>Was möchtest Du tun?</p>
+<button class="btn btn-primary" (click)="anzeigeModus = 'datenAendern'">Meine Daten ändern</button>
+<button class="btn btn-primary" (click)="anzeigeModus = 'bestellungenAnsehen'">Bestellungen ansehen</button>
+<button class="btn btn-primary" (click)="logout()">Logout</button>
+
+<div style="margin-top: 1em;">
+  <div [hidden]="anzeigeModus != 'datenAendern'">
+      <input type="text" *ngIf="benutzer" [(ngModel)]="benutzer.firstname" placeholder="Vorname"><br/>
+      <input type="text" *ngIf="benutzer" [(ngModel)]="benutzer.lastname" placeholder="Nachname"><br/>
+      <input type="text" *ngIf="benutzer" [(ngModel)]="benutzer.email" placeholder="E-Mail"><br/>
+      <input type="password" *ngIf="benutzer" [(ngModel)]="benutzer.password" placeholder="Neue PIN setzen" type="number"/><br/>
+      <input type="password" *ngIf="benutzer" [(ngModel)]="benutzerPasswortBestaetigen" placeholder="Neue PIN setzen (bestätigen)" type="number"/><br/>
+      <select *ngIf="benutzer" [(ngModel)]="benutzer.password_required">
+          <option value="1">Bestellungen auf mein Konto nur mit PIN-Eingabe erlauben</option>
+          <option value="0">Bestellungen auf mein Konto ohne PIN-Eingabe erlauben</option>
+      </select><br/>
+      <button class="btn btn-primary" (click)="benutzerAenderungSpeichern(benutzer)">Änderungen speichern</button><br/><br/>
+  </div>
+
+
+  <div [hidden]="anzeigeModus != 'bestellungenAnsehen'">
+    <div class="row" *ngFor="let bestellung of this.bestellungen">
+      <div class="col-sm-2">{{bestellung.id}}</div>
+      <div class="col-sm-2">{{bestellung.placed_on}}</div>
+      <div class="col-sm-2">{{bestellung.total_gross}}</div>
+    </div>
+  </div>
+</div>

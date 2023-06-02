@@ -1,0 +1,66 @@
+<h2>1. Schritt: Abrechnung der Getränkekasse durchführen</h2>
+
+<p>
+  Klicke auf den "Abrechnung starten" unten, um die Abrechnung der Getränkekasse zu starten. Für jeden Benutzer wird der offene Betrag errechnet und anschließend in der Liste aufgeführt. <br>
+  Die Getränkekasse setzt anschließend den offenen Betrag für die jeweiligen Nutzer auf "0 EUR". Die Abrechnungsliste kannst du in den nächsten Schritten manuell verbuchen oder über die weiteren Schritte automatisch an Vereinsflieger übermitteln.
+  <br>
+  Bei Fehlern wird die Abrechnung zumindest in der Theorie automatisch rückgängig gemacht - das wurde aber noch nicht ausprobiert.
+</p>
+
+<button class="btn btn-primary" (click)="abrechnungStarten()"><span class="fa fa-arrow-right"></span> Abrechnung starten</button><br><br>
+
+<h2>2. Schritt: Liste an Vereinsflieger senden</h2>
+
+<p>
+  Das System muss ermitteln, für welche Benutzer eine Abrechnung über Vereinsflieger möglich ist. Dazu einfach die Liste von Schritt 1 hier einfügen. Es werden noch keine Buchungen in Vereinsflieger erstellt. 
+</p>
+
+<div class="form-group">
+  <label for="file">Abrechnungsdatei auswählen:</label>
+  <input type="file"
+         id="file"
+         (change)="csvBezieheVereinsfliegerDatenFuerAbrechnungUpload($event)">
+</div>
+
+<h2>3. Schritt: Buchungen erstellen</h2>
+Alle Vorgänge mit Art "M" müssen manuell verbucht werden. Alle Vorgänge mit Kürzel "VF" können durch Klick auf "Buchungsprozess starten" unten automatisch in Vereinsflieger übertragen werden.
+
+<div *ngIf="this.vereinsfliegerAbrechnungsInformationen.length > 0">
+  <div *ngIf="this.stepThreeState == 'idle'">
+    <div class="alert alert-success" role="alert">
+      Informationen stehen bereit. Die Buchungssätze können jetzt erstellt werden.<br>    
+    </div>
+
+    <label>Buchungstext: <input [(ngModel)] = "buchungstext"></label><!-- / <label>Steuersatz: <input type="number" [(ngModel)] = "steuersatz"> % </label>-->
+    <button class="btn btn-primary" (click)="massenVerbuchungStarten()" *ngIf="this.stepThreeState == 'idle'">Buchungsprozess starten</button><br>
+  </div>
+
+  <div class="alert alert-info" role="alert" *ngIf="this.stepThreeState == 'processing'">
+    Abrechnungsprozess läuft. Das Browserfenster auf keinen Fall schließen.<br>    
+  </div>
+
+  <div class="alert alert-success" role="alert" *ngIf="this.stepThreeState == 'finished'">
+    Alle Buchungen verbucht. Bitte denke daran, die als "M" gekennzeichneten Buchungen eigenständig durchzuführen bzw. einzufordern.<br>    
+  </div>
+
+
+  <table class="table">
+    <tr>
+      <th>Art</th>
+      <th>Status</th>
+      <th>Name</th>
+      <th>E-Mail</th>
+      <th>Betrag</th>
+      <th>Bemerkung</th>
+      
+    </tr>
+    <tr *ngFor="let nutzerAbrechnung of this.vereinsfliegerAbrechnungsInformationen">
+      <td>{{nutzerAbrechnung.accounting_type}}</td>
+      <td>{{nutzerAbrechnung.status}}</td>
+      <td>{{nutzerAbrechnung.name}}</td>
+      <td>{{nutzerAbrechnung.email}}</td>
+      <td>{{nutzerAbrechnung.balance}}</td>
+      <td>{{nutzerAbrechnung.remark}}</td>
+    </tr>  
+  </table>
+</div>

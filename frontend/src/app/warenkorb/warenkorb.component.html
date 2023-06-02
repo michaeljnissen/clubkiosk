@@ -1,0 +1,29 @@
+<div class="cart-nav">
+  <div class="row">
+    <div class="col-sm-4"><a class="btn btn-block btn-secondary" routerLink="/uebersicht"><span class="fa fa-arrow-left"></span> Weiter einkaufen</a></div>
+    <div class="col-sm-4"><a class="btn btn-block btn-primary" routerLink="/bezahlen/bar">Gäste: Bar bezahlen <span class="fa fa-arrow-right"></span></a></div>
+    <div class="col-sm-4"><a class="btn btn-block btn-primary" routerLink="/bezahlen/konto">Mitglieder: Konto auswählen <span class="fa fa-arrow-right"></span></a></div>
+  </div>
+  <!--<a class="btn btn-secondary" routerLink="/uebersicht"><span class="fa fa-arrow-left"></span> Weiter einkaufen</a>
+  <span style="line-height: 2.5em;"><i>ODER <b>JETZT BEZAHLEN:</b></i></span>
+  <a class="btn btn-primary" routerLink="/bezahlen/bar">Ich bin Gast, ich möchte Bar zahlen <span class="fa fa-arrow-right"></span></a>
+  <a class="btn btn-primary" routerLink="/bezahlen/konto">Ich bin Mitglied, mit meinem Konto verrechnen <span class="fa fa-arrow-right"></span></a>-->
+</div>
+<h2>Warenkorb</h2>
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Menge</th>
+    <th>Preis</th>
+    <th>Optionen</th>
+  </tr>
+  <tr *ngFor="let eintrag of warenkorbEintraege">
+    <th>{{eintrag.produkt.name}}</th>
+    <th>{{eintrag.menge}}</th>
+    <th>{{eintrag.produkt.priceGross}} / {{(eintrag.produkt.priceGross * eintrag.menge) | number: '.2-2'}}</th>
+    <th>
+      <button class="btn btn-primary" (click)="inkrementiereProduktEintrag(eintrag)"><span class="fa fa-plus"></span></button>
+      <button class="btn btn-primary" (click)="dekrementiereProduktEintrag(eintrag)"><span class="fa fa-minus"></span></button>
+      <button class="btn btn-primary" (click)="entferneProduktEintrag(eintrag)"><span class="fa fa-trash"></span></button></th>
+  </tr>
+</table>

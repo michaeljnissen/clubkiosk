@@ -1,0 +1,25 @@
+.fehler-fenster
+{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background:rgba(105,105,105,0.9);
+  margin: 0;
+  padding: 0;
+  left: 0;
+  top: 0;
+  color: #FFF;
+  z-index: 9999;
+}
+
+.fehler-nachricht
+{
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.fehler-nachricht p {
+  font-size: 20px;
+}

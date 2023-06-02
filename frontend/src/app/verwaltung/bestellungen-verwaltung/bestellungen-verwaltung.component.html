@@ -1,0 +1,28 @@
+<div class="bestellung-anzeigen" [hidden]="aktuelleBestellung == null" *ngIf="aktuelleBestellung">
+  <b>Bestellung ID {{aktuelleBestellung.id}}</b><br/>
+  Datum: {{aktuelleBestellung.placed_on}}<br/>
+  Nutzer: {{aktuelleBestellung.user?.firstname}} {{aktuelleBestellung.user?.lastname}} (leer bei Barzahlung)<br/>
+  Zahlungsart: {{aktuelleBestellung.payment_method}}<br/>
+  Gesamptreis: {{aktuelleBestellung.total_gross}} Brutto / {{aktuelleBestellung.total_actual}} Netto<br/><br/>
+  <b>Produkte</b>
+  <ul>
+    <li *ngFor="let produkt of aktuelleBestellung.products">{{produkt.name}}, {{produkt.price_gross}} ({{produkt.tax}} USt)</li>
+  </ul>
+</div>
+
+<div class="row">
+    <div class="col-sm-2">ID / Bestellnummer</div>
+    <div class="col-sm-2">Datum</div>
+    <div class="col-sm-1">Zahlungsart</div>
+    <div class="col-sm-2">Nutzer</div>
+    <div class="col-sm-2">Gesamt Brutto</div>
+    <div class="col-sm-2"></div>
+</div>
+<div *ngFor="let bestellung of bestellungsListe" class="row verwaltung-eintrag">
+  <div class="col-sm-2">{{bestellung.id}} / {{bestellung.number}}</div>
+  <div class="col-sm-2">{{bestellung.placed_on}}</div>
+  <div class="col-sm-1">{{bestellung.payment_method}}</div>
+  <div class="col-sm-2">{{bestellung.user?.firstname}} {{bestellung.user?.lastname}}</div>
+  <div class="col-sm-2">{{bestellung.total_gross}}</div>
+  <div class="col-sm-2"><button class="btn btn-primary" (click)="waehleBestellung(bestellung)"><span class="fa fa-eye"></span> Details</button></div>
+</div>

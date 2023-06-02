@@ -1,0 +1,56 @@
+<div class="login" [hidden]="anzeigeModus != 'login'">
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Anmelden</h2>
+      <form>
+        <div class="form-group">
+          <label for="email-login">E-Mail-Adresse</label>
+          <input type="email" id="email-login" class="form-control" [(ngModel)]="email" placeholder="E-Mail-Adresse eingeben" name="email-login" required/>
+          <small id="email-help" class="form-text text-muted">E-Mail-Adresse, die auch in Vereinsflieger angegeben ist.</small>
+        </div>
+        <div class="form-group">
+            <label for="password-login">Passwort</label>
+          <input type="password" id="email-login" class="form-control" [(ngModel)]="passwort" placeholder="PIN/Passwort eingeben" name="password-login" required/>
+        </div>
+      <button type="submit" class="btn btn-primary" (click)="login()">Login</button><br/><br/>
+      
+      
+      </form>
+    </div>
+    <div class="col-md-4">
+      <h2>Registrieren</h2>
+      Noch kein Benutzerkonto? <br><br>
+      <button class="btn btn-secondary" (click)="anzeigeModus = 'registrierenVereinsflieger'">Benutzerkonto erstellen</button><br><br>
+      Eine Registrierung ohne Vereinsflieger-Konto ist <a (click)="anzeigeModus = 'registrierenManuell'">nicht möglich</a>.
+    </div>
+  </div>
+</div>
+
+<div class="registrieren" [hidden]="anzeigeModus != 'registrierenManuell'">
+  <h2>Neues Konto anlegen</h2> 
+  <input type="email" [(ngModel)]="email" placeholder="E-Mail" required/><br/>
+  <input type="text" [(ngModel)]="vorname" placeholder="Vorname" required/><br/>
+  <input type="text" [(ngModel)]="nachname" placeholder="Nachname" required/><br/>
+  <input type="password" [(ngModel)]="passwort" placeholder="PIN" required/><br/>
+  <input type="password" [(ngModel)]="passwortBestaetigen" placeholder="PIN (Wiederholung)" required/><br/>
+  <select [(ngModel)]="passwortBenoetigt">
+    <option value="1">Bestellungen auf mein Konto nur mit PIN-Eingabe erlauben</option>
+    <option value="0">Bestellungen auf mein Konto ohne PIN-Eingabe erlauben</option>
+  </select><br/>
+  <button class="btn btn-primary" (click)="registrieren('manual')">Registrieren</button><br/><br/>
+  <a (click)="anzeigeModus = 'login'">Zurück zum Login</a>
+</div>
+
+<div class="registrieren" [hidden]="anzeigeModus != 'registrierenVereinsflieger'">
+  <h2>Neues Konto anlegen</h2> 
+  <input type="email" [(ngModel)]="email" placeholder="E-Mail" required/> E-Mail muss mit der Vereinsflieger E-Mail-Adresse übereinstimmen<br/>
+  <input type="password" [(ngModel)]="passwort" placeholder="PIN" required/> PIN ist zur Ansicht der eigenen Bestellungen notwendig<br/>
+  <input type="password" [(ngModel)]="passwortBestaetigen" placeholder="PIN (Wiederholung)" required/><br/>
+  <select [(ngModel)]="passwortBenoetigt">
+    <option value="1">Bestellungen auf mein Konto nur mit PIN-Eingabe erlauben</option>
+    <option value="0">Bestellungen auf mein Konto ohne PIN-Eingabe erlauben</option>
+  </select> Bestellungen können wahlweise mit oder ohne PIN-Eingabe möglich sein<br/>
+  <button class="btn btn-primary" (click)="registrieren('vereinsflieger')">Registrieren</button><br/><br/>
+  <a (click)="anzeigeModus = 'login'">Zurück zum Login</a>
+</div>
+

@@ -1,0 +1,8 @@
+<div class="fehler-fenster" *ngIf="this.fehlermeldungen.length > 0">
+  <div class="fehler-nachricht">
+      <span *ngFor="let fehlermeldung of fehlermeldungen">
+          {{fehlermeldung}}<br/>
+      </span>
+      <button class="btn" (click)="this.fehlerNachrichtenLeeren()">Verstanden!</button>
+  </div>
+</div>

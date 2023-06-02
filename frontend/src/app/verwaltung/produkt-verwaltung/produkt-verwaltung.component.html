@@ -1,0 +1,90 @@
+<div class="produkt-bearbeiten" [hidden]="aktuellesProdukt == null">
+  <b>Produkt bearbeiten</b><br/>
+  <form>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Name: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-name" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.name" placeholder="Produktname">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Preis Brutto: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-preis-brutto" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.priceGross" placeholder="Brutto-Preis">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Basispreis Brutto: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-basispreis-brutto" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.basePriceGross" placeholder="Brutto-Referenzpreis">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Basispreis Referenz: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-basispreis-referenz" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.basePriceReference" placeholder="Referenzeinheit (z.B. Liter)">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Beschreibung: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-beschreibung" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.description" placeholder="Beschreibung">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Farbe: </label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" name="produkt-farbe" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.color" placeholder="Farbe">
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Steuer (Form: 0.XX): </label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" name="produkt-steuer" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.tax" placeholder="Steuer (Form: 0.XX)">
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">GTIN/EAN: </label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" name="produkt-gtin" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.gtin" placeholder="GTIN/EAN">
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Lagerbestand: </label>
+      <div class="col-sm-10">
+          <input type="text" class="form-control" name="produkt-lagerbestand" *ngIf="aktuellesProdukt" [(ngModel)]="aktuellesProdukt.stock" placeholder="Lagerbestand">
+        </div>
+    </div>
+    <div class="form-group row">
+      <label for="produkt-name" class="col-sm-2 col-form-label">Status: </label>
+      <div class="col-sm-10">
+        <select *ngIf="aktuellesProdukt" class="my-1 mr-sm-2 custom-select" name="produkt-status" [(ngModel)]="aktuellesProdukt.active">
+          <option value="1">Aktiv (wird angezeigt)</option>
+          <option value="0">Inaktiv (wird nicht angezeigt)</option>
+        </select>        
+      </div>
+    </div>    
+  <button type="submit" class="btn btn-primary" (click)="speichereProdukt(aktuellesProdukt)">Speichern</button>
+  <button class="btn btn-danger" (click)="loescheProdukt()"><span class="fa fa-trash"></span> Löschen</button>
+</form>
+</div>
+
+<div class="produkt-liste" [hidden]="aktuellesProdukt != null">
+  <button class="btn btn-primary" (click)="neuesProdukt()">Neues Produkt</button>
+  <input id="nurAktiveProdukteCheckbox" type="checkbox" [checked]="this.nurAktiveProdukteAnzeigen" (change)="this.nurAktiveProdukteAnzeigen = !this.nurAktiveProdukteAnzeigen"/>
+  <label for="nurAktiveProdukteCheckbox">Verstecke inaktive Produkte</label>
+
+
+  <div *ngFor="let produkt of produktListe | activeProductsFilter: this.nurAktiveProdukteAnzeigen" class="row verwaltung-eintrag border-left" [style.border-color]="produkt.color">
+    <div class="col-sm-1"><b>{{produkt.id}}</b></div>
+    <div class="col-sm-2">{{produkt.name}}</div>
+    <div class="col-sm-2">
+      {{produkt.priceGross}}<br/>
+      {{produkt.basePriceGross}} / {{produkt.basePriceReference}}
+    </div>
+    <div class="col-sm-1">{{produkt.tax}}</div>
+    <div class="col-sm-2">{{produkt.gtin}}</div>
+    <div class="col-sm-1">{{produkt.stock}}</div>
+    <div class="col-sm-1"><button class="btn btn-primary" (click)="waehleProdukt(produkt)"><span class="fa fa-pencil"></span> Bearbeiten</button></div>
+  </div>
+</div>

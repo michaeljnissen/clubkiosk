@@ -1,0 +1,11 @@
+<p>
+  Auf dieser Seite können Lagerbestände übersichtlich eingesehen und ggf. geändert werden.<br/>
+</p>
+
+<div *ngFor="let produkt of produktListe" class="row verwaltung-eintrag border-left" [style.border-color]="produkt.color">
+  <div class="col-sm-2"><b>{{produkt.name}}</b></div>
+  <div class="col-sm-2"><input type="text" [(ngModel)]="produkt.stock"></div>
+  <div class="col-sm-8"></div>
+</div>
+
+<button class="btn btn-primary" (click)="aktualisiereBestaende()"><span class="fa fa-save"></span> Bestände aktualisieren</button>

@@ -1,0 +1,19 @@
+<div style="text-align: center; width: 100%;"><i><b>Produkt auswählen oder Barcode scannen</b></i></div>
+<input [(ngModel)]="this.nameSuche" placeholder="Liste durchsuchen oder Barcode scannen" style="width: 100%;" autocomplete="on" aria-autocomplete="none" />
+<div class="produkt" *ngFor="let produkt of produkte | searchfilter: 'name' : this.nameSuche" [ngStyle]="{'border-left-color': produkt.color}" [hidden]="produkt.active == false">
+  <div class="produkt-details">
+      <div class="produkt-name">
+          {{produkt.name}}
+      </div>
+      {{produkt.priceGross}}{{globals.waehrung}}
+      (<small>{{produkt.basePriceGross}}{{globals.waehrung}}/{{produkt.basePriceReference}}</small>)
+  </div>
+  <div class="produkt-buy">
+      <a (click)="schnellKaufen(produkt)" style="float: right;"><button type="button" class="btn btn-secondary"><span class="fa fa-shopping-cart"></span> Schnellkauf</button></a>
+  </div>
+  <div style="clear: both;"></div>
+  <!--<div class="produkt-kurzdaten">
+    <a routerLink="/produkte/{{produkt.id}}"><button type="button" class="btn btn-secondary"><span class="fa fa-eye"></span> Produkt ansehen</button></a>
+    <a (click)="schnellKaufen(produkt)"><button type="button" class="btn btn-secondary"><span class="fa fa-shopping-cart"></span> Schnellkauf</button></a>
+  </div>-->
+</div>
